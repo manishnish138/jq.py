@@ -52,7 +52,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
 
     runs-on: ${{ matrix.os }}
-    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/')
+    #if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/')
 
     strategy:
       matrix:
@@ -77,6 +77,9 @@ jobs:
         CIBW_BEFORE_BUILD: "pip install cython==0.29.16 && cython {project}/jq.pyx"
         CIBW_TEST_REQUIRES: "-r test-requirements.txt"
         CIBW_TEST_COMMAND: "nosetests {project}/tests"
+   
+    - run: |
+        ls -l ./wheelhouse/
 
     - uses: actions/upload-artifact@v2
       with:
